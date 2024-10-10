@@ -31,7 +31,8 @@ public class AuthController {
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",useReturnTypeSchema = true,description = "Successfully Registered",
-                    content = @Content(mediaType = "application/json",schema = @Schema(implementation = User.class)))
+                    content = @Content(mediaType = "application/json",schema = @Schema(implementation = User.class))),
+//            @ApiResponse(responseCode = "400" , description = "User already exists with this mailid")
     })
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody RegisterUserDTO registerUserDTO) {

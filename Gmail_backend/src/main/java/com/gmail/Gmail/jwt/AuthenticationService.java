@@ -9,6 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthenticationService {
 
@@ -25,6 +27,10 @@ public class AuthenticationService {
     }
 
     public User signUp(RegisterUserDTO registerUserDTO) {
+        Optional<User> existingUser = userRepository.findById(registerUserDTO.getMailid());
+        if(existingUser.isPresent()) {
+            throw new RuntimeException("User with email " + registerUserDTO.getMailid() + "already exsts");
+        }
         User user = new User();
         user.setMailid(registerUserDTO.getMailid());
         user.setFirstName(registerUserDTO.getFirstName());
